@@ -26,7 +26,6 @@ export default function RosterList() {
         if (selectedRoster) {
             navigate(`/rosters/${selectedRoster.id}`);
         }
-
     }
 
     return (
