@@ -1,11 +1,7 @@
 import {useQuery} from "@tanstack/react-query"
+import type {DutyRoster} from "@/types/DutyRoster.ts";
 
-export interface DutyRoster {
-    id: number;
-    description: string;
-    detailType: string;
-    dutyAssignments: string[];
-}
+
 
 export const useDutyRosters = () =>
     useQuery({
