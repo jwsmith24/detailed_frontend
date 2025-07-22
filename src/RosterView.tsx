@@ -1,4 +1,3 @@
-import './App.css';
 import {useNavigate, useParams} from "react-router-dom";
 import {useDutyRoster} from "@/hooks/useDutyRoster.ts";
 import {useEffect} from "react";
