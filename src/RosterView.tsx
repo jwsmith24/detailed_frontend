@@ -6,6 +6,7 @@ import {useDutyAssignments} from "@/hooks/useDutyAssignments.ts";
 import {Button} from "@/components/ui/button.tsx";
 import type {DutyAssignment} from "@/types/DutyAssignment.ts";
 import {useCreateAssignment} from "@/hooks/useCreateAssignment.ts";
+import AssignmentTable from "@/components/ui/AssignmentTable.tsx";
 
 export default function RosterView() {
 
@@ -32,7 +33,8 @@ export default function RosterView() {
 
     const handleClickNewAssignment = () => {
         const mock: DutyAssignment = {
-            date: new Date("2025-07-24")
+            date: new Date("2025-07-24"),
+            description: "",
         }
 
         assignmentMutation.mutate(mock);
@@ -56,17 +58,7 @@ export default function RosterView() {
                   </div>)
                 }
 
-                {assignments?.map((assignment) => {
-                    if (assignment === undefined) return (
-                      <div>undefined</div>
-                    )
-                    return (
-                      <div key={assignment.id}>
-                          <h2>ID: {assignment.id}</h2>
-                          <p>Date: {assignment.date ? new Date(assignment.date).toDateString() : "----"}</p>
-                      </div>
-                    )
-                })}
+                <AssignmentTable assignments={assignments}/>
             </div>
         </div>
     )
