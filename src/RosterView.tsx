@@ -6,7 +6,7 @@ import {useDutyAssignments} from "@/hooks/useDutyAssignments.ts";
 import {Button} from "@/components/ui/button.tsx";
 import type {DutyAssignment} from "@/types/DutyAssignment.ts";
 import {useCreateAssignment} from "@/hooks/useCreateAssignment.ts";
-import AssignmentTable from "@/components/ui/AssignmentTable.tsx";
+import AssignmentTable from "@/AssignmentTable.tsx";
 
 export default function RosterView() {
 
@@ -42,22 +42,15 @@ export default function RosterView() {
     }
 
     return (
-        <div className={"grid w-screen h-screen p-6 items-start justify-start"}>
-            <div className={"grid gap-4 bg-gray-900 p-4 rounded-2xl"}>
+        <div className={"flex flex-col w-screen h-screen"}>
+            <div className={"grid bg-gray-900 m-4 p-4 rounded-2xl max-w-1/5 max-h-1/4"}>
                 <h1>Upcoming Duties</h1>
                 <p>{detailTypeLabels[roster.detailType]}</p>
                 <p>Viewing roster with id: {roster.id}</p>
                 <Button onClick={handleClickNewAssignment}>Add New Duty</Button>
             </div>
 
-            <div>
-                {assignments?.length === 0 &&
-                  (<div>
-                      <p>This roster doesn't have any assignments yet. You should add some</p>
-
-                  </div>)
-                }
-
+            <div className={"grid bg-gray-900 m-4 p-4 rounded-2xl"}>
                 <AssignmentTable assignments={assignments}/>
             </div>
         </div>

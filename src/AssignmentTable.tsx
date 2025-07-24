@@ -1,4 +1,4 @@
-import {Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table.tsx"
+import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table.tsx"
 import type {DutyAssignment} from "@/types/DutyAssignment.ts";
 
 export default function AssignmentTable({assignments} : {assignments : DutyAssignment[] | undefined}) {
@@ -6,7 +6,6 @@ export default function AssignmentTable({assignments} : {assignments : DutyAssig
 
     return(
     <Table>
-        <TableCaption>Available Assignments</TableCaption>
         <TableHeader>
             <TableRow>
                 <TableHead>Date</TableHead>
@@ -18,7 +17,7 @@ export default function AssignmentTable({assignments} : {assignments : DutyAssig
             {!assignments || assignments.length === 0 ? (
                 <TableRow>
                     <TableCell colSpan={3} className="text-center text-muted-foreground">
-                        No assignments
+                        No assignments have been added yet..
                     </TableCell>
                 </TableRow>
             ) : (
