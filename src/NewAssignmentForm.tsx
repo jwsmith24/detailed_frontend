@@ -22,7 +22,7 @@ const formSchema = z.object({
   description: z.string(),
 });
 
-export default function NewAssignmentForm({ rosterId }: { rosterId: number }) {
+export default function NewAssignmentForm({ rosterId, setOpen }: { rosterId: number, setOpen: (open: boolean) => void }) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -37,6 +37,7 @@ export default function NewAssignmentForm({ rosterId }: { rosterId: number }) {
     console.log("form submitted!");
     console.log(values);
     assignmentMutation.mutate(values);
+    setOpen(false);
   }
 
   return (

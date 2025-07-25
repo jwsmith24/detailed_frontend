@@ -41,24 +41,25 @@ export default function RosterView() {
   return (
     <div className={"flex flex-col w-screen h-screen"}>
       <div
-        className={"grid bg-gray-900 m-4 p-4 rounded-2xl max-w-1/5 max-h-1/4"}
+        className={"grid bg-gray-900 m-4 p-4 gap-2rounded-2xl max-w-1/2 max-h-1/4"}
       >
         <h1>Upcoming Duties</h1>
         <p>{detailTypeLabels[roster.detailType]}</p>
         <p>Viewing roster with id: {roster.id}</p>
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogTrigger asChild={true}>
+            <Button className={"mt-2"}>Add New Duty</Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Create New Assignment</DialogTitle>
+              <NewAssignmentForm rosterId={roster.id!} setOpen={setOpen} />
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
       </div>
 
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild={true}>
-          <Button>Add New Duty</Button>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Create New Assignment</DialogTitle>
-            <NewAssignmentForm rosterId={roster.id!} />
-          </DialogHeader>
-        </DialogContent>
-      </Dialog>
+
 
       <div className={"grid bg-gray-900 m-4 p-4 rounded-2xl"}>
         <AssignmentTable assignments={assignments} />
