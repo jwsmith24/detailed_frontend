@@ -16,17 +16,17 @@ import { Button } from "@/components/ui/button.tsx";
 import { useCreateAssignment } from "@/hooks/useCreateAssignment.ts";
 
 const formSchema = z.object({
-  date: z.string().refine((val) => !isNaN(Date.parse(val)), {
-    message: "invalid date provided",
-  }),
+  date: z.string(),
   description: z.string(),
 });
 
 export default function NewAssignmentForm({ rosterId, setOpen }: { rosterId: number, setOpen: (open: boolean) => void }) {
-  const form = useForm<z.infer<typeof formSchema>>({
+  const today = new Date().toISOString().split('T')[0];
+
+    const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      date: new Date().toISOString().split("T")[0], // grab YYYY-MM-DD
+      date: today, // grab YYYY-MM-DD
       description: "",
     },
   });

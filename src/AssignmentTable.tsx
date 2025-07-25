@@ -23,7 +23,7 @@ export default function AssignmentTable({assignments} : {assignments : DutyAssig
             ) : (
                 assignments.map((assignment, index) => (
                     <TableRow key={assignment.id ?? index}>
-                        <TableCell>{new Date(assignment.date).toDateString()}</TableCell>
+                        <TableCell>{assignment.date}</TableCell>
                         <TableCell>{assignment.description}</TableCell>
                         <TableCell>TBD</TableCell>
                     </TableRow>
