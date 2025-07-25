@@ -1,5 +1,5 @@
 export interface DutyAssignment {
-    id?: number;
-    date: Date;
-    description: string;
+  id?: number;
+  date: string;
+  description: string;
 }
