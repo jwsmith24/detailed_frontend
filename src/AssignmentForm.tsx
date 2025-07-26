@@ -14,16 +14,25 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button.tsx";
 import { useCreateAssignment } from "@/hooks/useCreateAssignment.ts";
+import { useUpdateAssignment } from "@/hooks/useUpdateAssignment.ts";
 
 const formSchema = z.object({
   date: z.string(),
   description: z.string(),
 });
 
-export default function NewAssignmentForm({ rosterId, setOpen }: { rosterId: number, setOpen: (open: boolean) => void }) {
-  const today = new Date().toISOString().split('T')[0];
+export default function AssignmentForm({
+  rosterId,
+  setOpen,
+  type,
+}: {
+  rosterId: number;
+  setOpen: (open: boolean) => void;
+  type: "new" | "edit";
+}) {
+  const today = new Date().toISOString().split("T")[0];
 
-    const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       date: today, // grab YYYY-MM-DD
@@ -32,11 +41,18 @@ export default function NewAssignmentForm({ rosterId, setOpen }: { rosterId: num
   });
 
   const assignmentMutation = useCreateAssignment(rosterId);
+  const assignmentUpdate = useUpdateAssignment(rosterId);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("form submitted!");
-    console.log(values);
-    assignmentMutation.mutate(values);
+    if (type === "new") {
+      console.log("form submitted for new assignment");
+      console.log(values);
+      assignmentMutation.mutate(values);
+    } else {
+      console.log("updating values...");
+      assignmentUpdate.mutate(values);
+    }
+
     setOpen(false);
   }
 

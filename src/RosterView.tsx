@@ -12,7 +12,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog.tsx";
-import NewAssignmentForm from "@/NewAssignmentForm.tsx";
+import AssignmentForm from "@/AssignmentForm.tsx";
 
 export default function RosterView() {
   const [open, setOpen] = useState(false);
@@ -41,7 +41,9 @@ export default function RosterView() {
   return (
     <div className={"flex flex-col w-screen h-screen"}>
       <div
-        className={"grid bg-gray-900 m-4 p-4 gap-2rounded-2xl max-w-1/2 max-h-1/4"}
+        className={
+          "grid bg-gray-900 m-4 p-4 gap-2rounded-2xl max-w-1/2 max-h-1/4"
+        }
       >
         <h1>Upcoming Duties</h1>
         <p>{detailTypeLabels[roster.detailType]}</p>
@@ -53,16 +55,18 @@ export default function RosterView() {
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Create New Assignment</DialogTitle>
-              <NewAssignmentForm rosterId={roster.id!} setOpen={setOpen} />
+              <AssignmentForm
+                rosterId={roster.id!}
+                setOpen={setOpen}
+                type={"new"}
+              />
             </DialogHeader>
           </DialogContent>
         </Dialog>
       </div>
 
-
-
       <div className={"grid bg-gray-900 m-4 p-4 rounded-2xl"}>
-        <AssignmentTable assignments={assignments} />
+        <AssignmentTable assignments={assignments} rosterId={roster.id} />
       </div>
     </div>
   );
