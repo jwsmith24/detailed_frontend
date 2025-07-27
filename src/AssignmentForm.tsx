@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button.tsx";
 import { useCreateAssignment } from "@/hooks/useCreateAssignment.ts";
 import { useUpdateAssignment } from "@/hooks/useUpdateAssignment.ts";
+import type { DutyAssignment } from "@/types/DutyAssignment.ts";
 
 const formSchema = z.object({
   date: z.string(),
@@ -23,10 +24,12 @@ const formSchema = z.object({
 
 export default function AssignmentForm({
   rosterId,
+  assignment,
   setOpen,
   type,
 }: {
   rosterId: number;
+  assignment: DutyAssignment;
   setOpen: (open: boolean) => void;
   type: "new" | "edit";
 }) {
@@ -35,12 +38,15 @@ export default function AssignmentForm({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      date: today, // grab YYYY-MM-DD
-      description: "",
+      date: assignment.date ?? today, // grab YYYY-MM-DD
+      description: assignment.description ?? "",
     },
   });
 
+  // POST
   const assignmentMutation = useCreateAssignment(rosterId);
+
+  // PUT
   const assignmentUpdate = useUpdateAssignment(rosterId);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
@@ -50,7 +56,14 @@ export default function AssignmentForm({
       assignmentMutation.mutate(values);
     } else {
       console.log("updating values...");
-      assignmentUpdate.mutate(values);
+      if (!assignment.id) {
+        throw new Error("Assignment id cannot be void for update");
+      }
+      const request = {
+        ...values,
+        id: assignment.id, // append id to form data
+      };
+      assignmentUpdate.mutate(request);
     }
 
     setOpen(false);

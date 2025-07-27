@@ -31,7 +31,7 @@ export default function AssignmentTable({
       <TableHeader>
         <TableRow>
           <TableHead>Date</TableHead>
-          <TableHead>Status</TableHead>
+          <TableHead>Description</TableHead>
           <TableHead>Assigned To</TableHead>
         </TableRow>
       </TableHeader>
@@ -66,8 +66,9 @@ export default function AssignmentTable({
                     <DialogTitle>Edit Assignment</DialogTitle>
                     <AssignmentForm
                       rosterId={rosterId!}
+                      assignment={assignment}
                       setOpen={setOpen}
-                      type={"new"}
+                      type={"edit"}
                     />
                   </DialogHeader>
                 </DialogContent>
